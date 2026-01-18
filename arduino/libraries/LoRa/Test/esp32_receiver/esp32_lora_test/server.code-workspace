@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../VSCode/ESP32_FULL/server"
+		},
+		{
+			"name": "esp32_lora_test",
+			"path": "."
+		}
+	],
+	"settings": {}
+}

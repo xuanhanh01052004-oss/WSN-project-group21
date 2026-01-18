@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../TESTT"
+		},
+		{
+			"name": "ESP32_client",
+			"path": "."
+		}
+	],
+	"settings": {}
+}
