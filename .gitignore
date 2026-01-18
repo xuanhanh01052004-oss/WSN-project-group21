@@ -1,0 +1,27 @@
+# Build outputs
+Debug/
+Release/
+*/Debug/
+*/Release/
+*.o
+*.d
+*.elf
+*.hex
+*.bin
+*.map
+*.lst
+*.axf
+
+# CubeIDE / Eclipse
+.metadata/
+.settings/
+
+# VSCode
+.vscode/
+
+# Keil user/cache
+*.uvoptx
+*.uvguix.*
+*.bak
+*.dep
+*.crf
