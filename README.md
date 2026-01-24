@@ -17,9 +17,9 @@ Hệ thống gồm 3 lớp chính:
 
 ### 2.1 Sensor Node (nhiều node)
 - Cảm biến: **DHT22** (nhiệt độ/độ ẩm)
-- (Tuỳ chọn) Cảm biến độ ẩm đất (đọc ADC)
-- Vi điều khiển: **STM32** (ví dụ STM32F103)
-- Kết nối không dây: **LoRa (SX1278/RA-01 433MHz)**
+- (Tuỳ chọn) Cảm biến độ ẩm đất capacitive(đọc ADC)
+- Vi điều khiển: **STM32** (ví dụ STM32F103C8T6)
+- Kết nối không dây: **LoRa (SX1278/RA-01/02 433MHz)**
 
 ### 2.2 ESP32 Relay + ESP32 Gateway
 - **ESP32 Relay**: nhận gói tin LoRa từ các node (có ID), sau đó **forward bằng LoRa 433MHz** lên Gateway để mở rộng vùng phủ.
