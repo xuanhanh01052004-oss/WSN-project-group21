@@ -139,7 +139,7 @@ Trang `index.html` hiển thị:
 ### 10.2 Chạy server
 ```bash
 node server.js
-**### 10.3  Mở web***
+10.3  Mở web
 
 http://localhost:3000/ (trên máy chạy server)
 
