@@ -1,4 +1,3 @@
-
 # WSN – Wireless Sensor Network for 100-Hectare Field Monitoring
 Dự án xây dựng **mạng cảm biến không dây (WSN)** để giám sát **nhiệt độ – độ ẩm môi trường** (có thể mở rộng thêm độ ẩm đất) trên cánh đồng/vườn quy mô **~100 hecta**.  
 Các node cảm biến thu thập dữ liệu theo chu kỳ và truyền về **Gateway**; dữ liệu được lưu trữ theo ngày và hiển thị trực quan.
@@ -21,10 +20,11 @@ Hệ thống gồm 3 lớp chính:
 - Vi điều khiển: **STM32** (ví dụ STM32F103)
 - Kết nối không dây: **LoRa (SX1278/RA-01 433MHz)**
 
-2) **Gateway**
+2) **Relay/Gateway**
 - Vi điều khiển: **ESP32**
+- Reley nhận gói tin từ các node được định danh ID và forward lên thăng gateway
 - Module LoRa nhận/gửi gói tin với các node
-- Chuyển tiếp dữ liệu lên server qua WiFi (HTTP/REST)
+- Chuyển tiếp dữ liệu từ client ESP32Gateway lên server qua WiFi (HTTP/REST)
 
 3) **Server / Web**
 - Nhận dữ liệu từ Gateway qua API
@@ -35,15 +35,23 @@ Hệ thống gồm 3 lớp chính:
 
 ## 3. Luồng dữ liệu (Data Flow)
 1. Node đọc DHT22 → tạo gói tin (ID node, T, H, timestamp, RSSI/SNR nếu có)  
-2. Node gửi gói tin qua LoRa → Gateway nhận  
-3. Gateway parse gói tin → gửi lên Server qua HTTP (JSON)  
-4. Server lưu trữ dữ liệu theo ngày → Web hiển thị
+2. Node gửi gói tin qua LoRa → Relay nhận
+3. Relay fw -> Gateway
+4. Gateway parse gói tin → gửi lên Server qua HTTP (JSON)  
+5. Server lưu trữ dữ liệu theo ngày → Web hiển thị
 
 ---
 
+## 4. Cấu trúc thư mục (Repository Structure)
+- `sensornode`: https://github.com/xuanhanh01052004-oss/WSN-project/tree/master/arduino/libraries/DHT22/sensor_2node/sensor_2node
+- `ESP32 relay/`:(https://github.com/xuanhanh01052004-oss/WSN-project/tree/master/esp32/ESP32_Relay/ESP32_Relay)
+- `ESP32 Gateway/`:(https://github.com/xuanhanh01052004-oss/WSN-project/tree/master/esp32/ESP32_Relay/ESP32_Relay)](https://github.com/xuanhanh01052004-oss/WSN-project/tree/master/esp32/ESP32_FULL/client/client_ESP32)
+- `Server/`: https://github.com/xuanhanh01052004-oss/WSN-project/tree/master/esp32/ESP32_FULL/server
+
+
 ---
 
-## 4. Giao thức gói tin (Packet Format)
+## 5. Giao thức gói tin (Packet Format)
 Ví dụ payload dạng chuỗi/JSON (có thể thay đổi tùy triển khai):
 
 - **Text**: `ID,T,H,BAT`
@@ -56,51 +64,3 @@ Ví dụ payload dạng chuỗi/JSON (có thể thay đổi tùy triển khai):
   "time": "2026-01-24T10:30:00",
   "rssi": -87
 }
-````
-
----
-
-## 6. Hướng dẫn chạy nhanh (Quick Start)
-
-### 6.1 Sensor Node (STM32)
-
-* Mở project `.ioc` bằng **STM32CubeMX** / **STM32CubeIDE**
-* Generate code → Build
-* Nạp firmware cho board STM32
-* Kiểm tra UART debug (nếu có)
-
-### 6.2 Gateway (ESP32)
-
-* Mở project ESP32 (Arduino IDE hoặc PlatformIO)
-* Cấu hình WiFi + endpoint server
-* Flash vào ESP32
-* Mở Serial Monitor để xem log nhận LoRa và gửi HTTP
-
-### 6.3 Server/Web
-
-* Chạy server (Node.js/Express hoặc tùy bạn)
-* Kiểm tra endpoint nhận dữ liệu
-* Mở web để xem dữ liệu hiển thị
-
----
-
-## 7. Công cụ sử dụng
-
-* STM32CubeMX / STM32CubeIDE (hoặc Keil)
-* Arduino IDE / PlatformIO (ESP32)
-* Node.js/Express (Server) *(nếu có)*
-* Git/GitHub quản lý phiên bản
-
----
-
-## 8. Kế hoạch mở rộng (Future Work)
-
-* Thêm cảm biến **độ ẩm đất**, ánh sáng, pH...
-* Tối ưu năng lượng: sleep mode, chu kỳ đo thích ứng
-* Cơ chế ACK/Retry, chống mất gói
-* Bảo mật: ký gói tin, mã hóa payload
-* Dashboard nâng cao: biểu đồ theo ngày/tuần/tháng, cảnh báo ngưỡng
-
----
-start).
-```
