@@ -17,7 +17,7 @@ Hệ thống gồm 3 lớp chính:
 
 ### 2.1 Sensor Node (nhiều node)
 - Cảm biến: **DHT22** (nhiệt độ/độ ẩm)
-- (Tuỳ chọn) Cảm biến độ ẩm đất capacitive(đọc ADC)
+- Cảm biến độ ẩm đất capacitive v1.2(đọc ADC)
 - Vi điều khiển: **STM32** (ví dụ STM32F103C8T6)
 - Kết nối không dây: **LoRa (SX1278/RA-01/02 433MHz)**
 
@@ -102,7 +102,7 @@ Các tham số LoRa cần đồng bộ giữa Node / Relay / Gateway:
 - BW: 125 kHz
 - CR: 4/5
 
-> (Nếu nhóm bạn dùng thông số khác, chỉ cần sửa đúng theo cấu hình thực tế.)
+
 
 ---
 
